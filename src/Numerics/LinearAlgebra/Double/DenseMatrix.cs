@@ -46,7 +46,7 @@ namespace MathNet.Numerics.LinearAlgebra.Double
     /// A Matrix class with dense storage. The underlying storage is a one dimensional array in column-major order (column by column).
     /// </summary>
     [Serializable]
-    [DebuggerDisplay("DenseMatrix {RowCount}x{ColumnCount}-Double")]
+    //[DebuggerDisplay("DenseMatrix {RowCount}x{ColumnCount}-Double")]
     public class DenseMatrix : Matrix
     {
         /// <summary>

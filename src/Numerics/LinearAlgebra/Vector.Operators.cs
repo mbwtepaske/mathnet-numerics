@@ -29,236 +29,240 @@
 // </copyright>
 
 using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace MathNet.Numerics.LinearAlgebra
 {
-    public abstract partial class Vector<T>
+  public abstract partial class Vector<T>
+  {
+    /// <summary>
+    /// Returns a <strong>Vector</strong> containing the same values of <paramref name="rightSide"/>.
+    /// </summary>
+    /// <remarks>This method is included for completeness.</remarks>
+    /// <param name="rightSide">The vector to get the values from.</param>
+    /// <returns>A vector containing the same values as <paramref name="rightSide"/>.</returns>
+    /// <exception cref="ArgumentNullException">If <paramref name="rightSide"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator +(Vector<T> rightSide)
     {
-        /// <summary>
-        /// Returns a <strong>Vector</strong> containing the same values of <paramref name="rightSide"/>.
-        /// </summary>
-        /// <remarks>This method is included for completeness.</remarks>
-        /// <param name="rightSide">The vector to get the values from.</param>
-        /// <returns>A vector containing the same values as <paramref name="rightSide"/>.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="rightSide"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator +(Vector<T> rightSide)
-        {
-            return rightSide.Clone();
-        }
-
-        /// <summary>
-        /// Returns a <strong>Vector</strong> containing the negated values of <paramref name="rightSide"/>.
-        /// </summary>
-        /// <param name="rightSide">The vector to get the values from.</param>
-        /// <returns>A vector containing the negated values as <paramref name="rightSide"/>.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="rightSide"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator -(Vector<T> rightSide)
-        {
-            return rightSide.Negate();
-        }
-
-        /// <summary>
-        /// Adds two <strong>Vectors</strong> together and returns the results.
-        /// </summary>
-        /// <param name="leftSide">One of the vectors to add.</param>
-        /// <param name="rightSide">The other vector to add.</param>
-        /// <returns>The result of the addition.</returns>
-        /// <exception cref="ArgumentException">If <paramref name="leftSide"/> and <paramref name="rightSide"/> are not the same size.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="leftSide"/> or <paramref name="rightSide"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator +(Vector<T> leftSide, Vector<T> rightSide)
-        {
-            return leftSide.Add(rightSide);
-        }
-
-        /// <summary>
-        /// Adds a scalar to each element of a vector.
-        /// </summary>
-        /// <param name="leftSide">The vector to add to.</param>
-        /// <param name="rightSide">The scalar value to add.</param>
-        /// <returns>The result of the addition.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="leftSide"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator +(Vector<T> leftSide, T rightSide)
-        {
-            return leftSide.Add(rightSide);
-        }
-
-        /// <summary>
-        /// Adds a scalar to each element of a vector.
-        /// </summary>
-        /// <param name="leftSide">The scalar value to add.</param>
-        /// <param name="rightSide">The vector to add to.</param>
-        /// <returns>The result of the addition.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="rightSide"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator +(T leftSide, Vector<T> rightSide)
-        {
-            return rightSide.Add(leftSide);
-        }
-
-        /// <summary>
-        /// Subtracts two <strong>Vectors</strong> and returns the results.
-        /// </summary>
-        /// <param name="leftSide">The vector to subtract from.</param>
-        /// <param name="rightSide">The vector to subtract.</param>
-        /// <returns>The result of the subtraction.</returns>
-        /// <exception cref="ArgumentException">If <paramref name="leftSide"/> and <paramref name="rightSide"/> are not the same size.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="leftSide"/> or <paramref name="rightSide"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator -(Vector<T> leftSide, Vector<T> rightSide)
-        {
-            return leftSide.Subtract(rightSide);
-        }
-
-        /// <summary>
-        /// Subtracts a scalar from each element of a vector.
-        /// </summary>
-        /// <param name="leftSide">The vector to subtract from.</param>
-        /// <param name="rightSide">The scalar value to subtract.</param>
-        /// <returns>The result of the subtraction.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="leftSide"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator -(Vector<T> leftSide, T rightSide)
-        {
-            return leftSide.Subtract(rightSide);
-        }
-
-        /// <summary>
-        /// Substracts each element of a vector from a scalar.
-        /// </summary>
-        /// <param name="leftSide">The scalar value to subtract from.</param>
-        /// <param name="rightSide">The vector to subtract.</param>
-        /// <returns>The result of the subtraction.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="rightSide"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator -(T leftSide, Vector<T> rightSide)
-        {
-            return rightSide.SubtractFrom(leftSide);
-        }
-
-        /// <summary>
-        /// Multiplies a vector with a scalar.
-        /// </summary>
-        /// <param name="leftSide">The vector to scale.</param>
-        /// <param name="rightSide">The scalar value.</param>
-        /// <returns>The result of the multiplication.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="leftSide"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator *(Vector<T> leftSide, T rightSide)
-        {
-            return leftSide.Multiply(rightSide);
-        }
-
-        /// <summary>
-        /// Multiplies a vector with a scalar.
-        /// </summary>
-        /// <param name="leftSide">The scalar value.</param>
-        /// <param name="rightSide">The vector to scale.</param>
-        /// <returns>The result of the multiplication.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="rightSide"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator *(T leftSide, Vector<T> rightSide)
-        {
-            return rightSide.Multiply(leftSide);
-        }
-
-        /// <summary>
-        /// Computes the dot product between two <strong>Vectors</strong>.
-        /// </summary>
-        /// <param name="leftSide">The left row vector.</param>
-        /// <param name="rightSide">The right column vector.</param>
-        /// <returns>The dot product between the two vectors.</returns>
-        /// <exception cref="ArgumentException">If <paramref name="leftSide"/> and <paramref name="rightSide"/> are not the same size.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="leftSide"/> or <paramref name="rightSide"/> is <see langword="null" />.</exception>
-        public static T operator *(Vector<T> leftSide, Vector<T> rightSide)
-        {
-            return leftSide.DotProduct(rightSide);
-        }
-
-        /// <summary>
-        /// Divides a scalar with a vector.
-        /// </summary>
-        /// <param name="dividend">The scalar to divide.</param>
-        /// <param name="divisor">The vector.</param>
-        /// <returns>The result of the division.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="divisor"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator /(T dividend, Vector<T> divisor)
-        {
-            return divisor.DivideByThis(dividend);
-        }
-
-        /// <summary>
-        /// Divides a vector with a scalar.
-        /// </summary>
-        /// <param name="dividend">The vector to divide.</param>
-        /// <param name="divisor">The scalar value.</param>
-        /// <returns>The result of the division.</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="dividend"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator /(Vector<T> dividend, T divisor)
-        {
-            return dividend.Divide(divisor);
-        }
-
-        /// <summary>
-        /// Pointwise divides two <strong>Vectors</strong>.
-        /// </summary>
-        /// <param name="dividend">The vector to divide.</param>
-        /// <param name="divisor">The other vector.</param>
-        /// <returns>The result of the division.</returns>
-        /// <exception cref="ArgumentException">If <paramref name="dividend"/> and <paramref name="divisor"/> are not the same size.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="dividend"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator /(Vector<T> dividend, Vector<T> divisor)
-        {
-            return dividend.PointwiseDivide(divisor);
-        }
-
-        /// <summary>
-        /// Computes the remainder (% operator), where the result has the sign of the dividend,
-        /// of each element of the vector of the given divisor.
-        /// </summary>
-        /// <param name="dividend">The vector whose elements we want to compute the remainder of.</param>
-        /// <param name="divisor">The divisor to use.</param>
-        /// <exception cref="ArgumentNullException">If <paramref name="dividend"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator %(Vector<T> dividend, T divisor)
-        {
-            return dividend.Remainder(divisor);
-        }
-
-        /// <summary>
-        /// Computes the remainder (% operator), where the result has the sign of the dividend,
-        /// of the given dividend of each element of the vector.
-        /// </summary>
-        /// <param name="dividend">The dividend we want to compute the remainder of.</param>
-        /// <param name="divisor">The vector whose elements we want to use as divisor.</param>
-        /// <exception cref="ArgumentNullException">If <paramref name="dividend"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator %(T dividend, Vector<T> divisor)
-        {
-            return divisor.RemainderByThis(dividend);
-        }
-
-        /// <summary>
-        /// Computes the pointwise remainder (% operator), where the result has the sign of the dividend,
-        /// of each element of two vectors.
-        /// </summary>
-        /// <param name="dividend">The vector whose elements we want to compute the remainder of.</param>
-        /// <param name="divisor">The divisor to use.</param>
-        /// <exception cref="ArgumentException">If <paramref name="dividend"/> and <paramref name="divisor"/> are not the same size.</exception>
-        /// <exception cref="ArgumentNullException">If <paramref name="dividend"/> is <see langword="null" />.</exception>
-        public static Vector<T> operator %(Vector<T> dividend, Vector<T> divisor)
-        {
-            return dividend.PointwiseRemainder(divisor);
-        }
-
-        [SpecialName]
-        public static Vector<T> op_DotMultiply(Vector<T> x, Vector<T> y)
-        {
-            return x.PointwiseMultiply(y);
-        }
-
-        [SpecialName]
-        public static Vector<T> op_DotDivide(Vector<T> dividend, Vector<T> divisor)
-        {
-            return dividend.PointwiseDivide(divisor);
-        }
-
-        [SpecialName]
-        public static Vector<T> op_DotPercent(Vector<T> dividend, Vector<T> divisor)
-        {
-            return dividend.PointwiseRemainder(divisor);
-        }
+      return rightSide.Clone();
     }
+
+    /// <summary>
+    /// Returns a <strong>Vector</strong> containing the negated values of <paramref name="rightSide"/>.
+    /// </summary>
+    /// <param name="rightSide">The vector to get the values from.</param>
+    /// <returns>A vector containing the negated values as <paramref name="rightSide"/>.</returns>
+    /// <exception cref="ArgumentNullException">If <paramref name="rightSide"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator -(Vector<T> rightSide)
+    {
+      return rightSide.Negate();
+    }
+
+    /// <summary>
+    /// Adds two <strong>Vectors</strong> together and returns the results.
+    /// </summary>
+    /// <param name="leftSide">One of the vectors to add.</param>
+    /// <param name="rightSide">The other vector to add.</param>
+    /// <returns>The result of the addition.</returns>
+    /// <exception cref="ArgumentException">If <paramref name="leftSide"/> and <paramref name="rightSide"/> are not the same size.</exception>
+    /// <exception cref="ArgumentNullException">If <paramref name="leftSide"/> or <paramref name="rightSide"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator +(Vector<T> leftSide, Vector<T> rightSide)
+    {
+      return leftSide.Add(rightSide);
+    }
+
+    /// <summary>
+    /// Adds a scalar to each element of a vector.
+    /// </summary>
+    /// <param name="leftSide">The vector to add to.</param>
+    /// <param name="rightSide">The scalar value to add.</param>
+    /// <returns>The result of the addition.</returns>
+    /// <exception cref="ArgumentNullException">If <paramref name="leftSide"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator +(Vector<T> leftSide, T rightSide)
+    {
+      return leftSide.Add(rightSide);
+    }
+
+    /// <summary>
+    /// Adds a scalar to each element of a vector.
+    /// </summary>
+    /// <param name="leftSide">The scalar value to add.</param>
+    /// <param name="rightSide">The vector to add to.</param>
+    /// <returns>The result of the addition.</returns>
+    /// <exception cref="ArgumentNullException">If <paramref name="rightSide"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator +(T leftSide, Vector<T> rightSide)
+    {
+      return rightSide.Add(leftSide);
+    }
+
+    /// <summary>
+    /// Subtracts two <strong>Vectors</strong> and returns the results.
+    /// </summary>
+    /// <param name="leftSide">The vector to subtract from.</param>
+    /// <param name="rightSide">The vector to subtract.</param>
+    /// <returns>The result of the subtraction.</returns>
+    /// <exception cref="ArgumentException">If <paramref name="leftSide"/> and <paramref name="rightSide"/> are not the same size.</exception>
+    /// <exception cref="ArgumentNullException">If <paramref name="leftSide"/> or <paramref name="rightSide"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator -(Vector<T> leftSide, Vector<T> rightSide)
+    {
+      return leftSide.Subtract(rightSide);
+    }
+
+    /// <summary>
+    /// Subtracts a scalar from each element of a vector.
+    /// </summary>
+    /// <param name="leftSide">The vector to subtract from.</param>
+    /// <param name="rightSide">The scalar value to subtract.</param>
+    /// <returns>The result of the subtraction.</returns>
+    /// <exception cref="ArgumentNullException">If <paramref name="leftSide"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator -(Vector<T> leftSide, T rightSide)
+    {
+      return leftSide.Subtract(rightSide);
+    }
+
+    /// <summary>
+    /// Substracts each element of a vector from a scalar.
+    /// </summary>
+    /// <param name="leftSide">The scalar value to subtract from.</param>
+    /// <param name="rightSide">The vector to subtract.</param>
+    /// <returns>The result of the subtraction.</returns>
+    /// <exception cref="ArgumentNullException">If <paramref name="rightSide"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator -(T leftSide, Vector<T> rightSide)
+    {
+      return rightSide.SubtractFrom(leftSide);
+    }
+
+    /// <summary>
+    /// Multiplies a vector with a scalar.
+    /// </summary>
+    /// <param name="leftSide">The vector to scale.</param>
+    /// <param name="rightSide">The scalar value.</param>
+    /// <returns>The result of the multiplication.</returns>
+    /// <exception cref="ArgumentNullException">If <paramref name="leftSide"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator *(Vector<T> leftSide, T rightSide)
+    {
+      return leftSide.Multiply(rightSide);
+    }
+
+    /// <summary>
+    /// Multiplies a vector with a scalar.
+    /// </summary>
+    /// <param name="leftSide">The scalar value.</param>
+    /// <param name="rightSide">The vector to scale.</param>
+    /// <returns>The result of the multiplication.</returns>
+    /// <exception cref="ArgumentNullException">If <paramref name="rightSide"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator *(T leftSide, Vector<T> rightSide)
+    {
+      return rightSide.Multiply(leftSide);
+    }
+
+    /// <summary>
+    /// Computes the dot product between two <strong>Vectors</strong>.
+    /// </summary>
+    /// <param name="leftSide">The left row vector.</param>
+    /// <param name="rightSide">The right column vector.</param>
+    /// <returns>The dot product between the two vectors.</returns>
+    /// <exception cref="ArgumentException">If <paramref name="leftSide"/> and <paramref name="rightSide"/> are not the same size.</exception>
+    /// <exception cref="ArgumentNullException">If <paramref name="leftSide"/> or <paramref name="rightSide"/> is <see langword="null" />.</exception>
+    public static T operator *(Vector<T> leftSide, Vector<T> rightSide)
+    {
+      return leftSide.DotProduct(rightSide);
+    }
+
+    /// <summary>
+    /// Divides a scalar with a vector.
+    /// </summary>
+    /// <param name="dividend">The scalar to divide.</param>
+    /// <param name="divisor">The vector.</param>
+    /// <returns>The result of the division.</returns>
+    /// <exception cref="ArgumentNullException">If <paramref name="divisor"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator /(T dividend, Vector<T> divisor)
+    {
+      return divisor.DivideByThis(dividend);
+    }
+
+    /// <summary>
+    /// Divides a vector with a scalar.
+    /// </summary>
+    /// <param name="dividend">The vector to divide.</param>
+    /// <param name="divisor">The scalar value.</param>
+    /// <returns>The result of the division.</returns>
+    /// <exception cref="ArgumentNullException">If <paramref name="dividend"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator /(Vector<T> dividend, T divisor)
+    {
+      return dividend.Divide(divisor);
+    }
+
+    /// <summary>
+    /// Pointwise divides two <strong>Vectors</strong>.
+    /// </summary>
+    /// <param name="dividend">The vector to divide.</param>
+    /// <param name="divisor">The other vector.</param>
+    /// <returns>The result of the division.</returns>
+    /// <exception cref="ArgumentException">If <paramref name="dividend"/> and <paramref name="divisor"/> are not the same size.</exception>
+    /// <exception cref="ArgumentNullException">If <paramref name="dividend"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator /(Vector<T> dividend, Vector<T> divisor)
+    {
+      return dividend.PointwiseDivide(divisor);
+    }
+
+    /// <summary>
+    /// Computes the remainder (% operator), where the result has the sign of the dividend,
+    /// of each element of the vector of the given divisor.
+    /// </summary>
+    /// <param name="dividend">The vector whose elements we want to compute the remainder of.</param>
+    /// <param name="divisor">The divisor to use.</param>
+    /// <exception cref="ArgumentNullException">If <paramref name="dividend"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator %(Vector<T> dividend, T divisor)
+    {
+      return dividend.Remainder(divisor);
+    }
+
+    /// <summary>
+    /// Computes the remainder (% operator), where the result has the sign of the dividend,
+    /// of the given dividend of each element of the vector.
+    /// </summary>
+    /// <param name="dividend">The dividend we want to compute the remainder of.</param>
+    /// <param name="divisor">The vector whose elements we want to use as divisor.</param>
+    /// <exception cref="ArgumentNullException">If <paramref name="dividend"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator %(T dividend, Vector<T> divisor)
+    {
+      return divisor.RemainderByThis(dividend);
+    }
+
+    /// <summary>
+    /// Computes the pointwise remainder (% operator), where the result has the sign of the dividend,
+    /// of each element of two vectors.
+    /// </summary>
+    /// <param name="dividend">The vector whose elements we want to compute the remainder of.</param>
+    /// <param name="divisor">The divisor to use.</param>
+    /// <exception cref="ArgumentException">If <paramref name="dividend"/> and <paramref name="divisor"/> are not the same size.</exception>
+    /// <exception cref="ArgumentNullException">If <paramref name="dividend"/> is <see langword="null" />.</exception>
+    public static Vector<T> operator %(Vector<T> dividend, Vector<T> divisor)
+    {
+      return dividend.PointwiseRemainder(divisor);
+    }
+
+    //[Browsable(false)]
+    //[SpecialName]
+    //public static Vector<T> op_DotMultiply(Vector<T> x, Vector<T> y)
+    //{
+    //  return x.PointwiseMultiply(y);
+    //}
+
+    //[Browsable(false)]
+    //[SpecialName]
+    //public static Vector<T> op_DotDivide(Vector<T> dividend, Vector<T> divisor)
+    //{
+    //  return dividend.PointwiseDivide(divisor);
+    //}
+
+    //[Browsable(false)]
+    //[SpecialName]
+    //public static Vector<T> op_DotPercent(Vector<T> dividend, Vector<T> divisor)
+    //{
+    //  return dividend.PointwiseRemainder(divisor);
+    //}
+  }
 }
